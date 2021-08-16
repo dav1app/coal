@@ -1,4 +1,7 @@
 import './style.css'
+import { RectAreaLight } from 'three'
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js'
+import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js'
 import PointLight from './3d/components/light/PointLight'
 import { Keyboard } from './3d/controls/keyboard'
 import { Camera } from './3d/components/camera'
@@ -16,6 +19,12 @@ async function setup () {
   const scene = new Scene()
   const camera = new Camera()
 
+  RectAreaLightUniformsLib.init()
+
+  const rectLight = new RectAreaLight(0xff0000, 5, 4, 10)
+  rectLight.position.set(-5, 5, 5)
+  scene.add(rectLight)
+  scene.add(new RectAreaLightHelper(rectLight))
   scene.add(camera)
   scene.add(new PointLight())
   scene.add(new Floor())
