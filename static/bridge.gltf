@@ -1,0 +1,147 @@
+{
+    "asset": {
+        "version": "1.0",
+        "generator": "Open Asset Import Library (assimp v4.1.0)"
+    },
+    "accessors": {
+        "mesh_accessor": {
+            "bufferView": "mesh_view",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "componentType": 5126,
+            "count": 1687,
+            "type": "VEC3",
+            "max": [
+                30.5,
+                11.549766540527344,
+                4.005692005157471
+            ],
+            "min": [
+                -0.559523344039917,
+                -0.8234543800354004,
+                0.0012741262326017023
+            ]
+        },
+        "mesh_accessor_0": {
+            "bufferView": "mesh_view_0",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "componentType": 5126,
+            "count": 1687,
+            "type": "VEC3",
+            "max": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "min": [
+                -1.0,
+                -1.0,
+                -1.0
+            ]
+        },
+        "mesh_accessor_1": {
+            "bufferView": "mesh_view_1",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "componentType": 5123,
+            "count": 8871,
+            "type": "SCALAR",
+            "max": [
+                1686.0
+            ],
+            "min": [
+                0.0
+            ]
+        }
+    },
+    "buffers": {
+        "../../download/4vkv1pjgc2a8/4vkv1pjgc2a8": {
+            "byteLength": 58230,
+            "type": "arraybuffer",
+            "uri": "../../download/4vkv1pjgc2a8/4vkv1pjgc2a8.bin"
+        }
+    },
+    "bufferViews": {
+        "mesh_view": {
+            "buffer": "../../download/4vkv1pjgc2a8/4vkv1pjgc2a8",
+            "byteOffset": 0,
+            "byteLength": 20244,
+            "target": 34962
+        },
+        "mesh_view_0": {
+            "buffer": "../../download/4vkv1pjgc2a8/4vkv1pjgc2a8",
+            "byteOffset": 20244,
+            "byteLength": 20244,
+            "target": 34962
+        },
+        "mesh_view_1": {
+            "buffer": "../../download/4vkv1pjgc2a8/4vkv1pjgc2a8",
+            "byteOffset": 40488,
+            "byteLength": 17742,
+            "target": 34963
+        }
+    },
+    "materials": {
+        "DefaultMaterial": {
+            "values": {
+                "ambient": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "diffuse": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "specular": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "emission": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "shininess": 0.0
+            }
+        }
+    },
+    "meshes": {
+        "mesh": {
+            "name": "",
+            "primitives": [
+                {
+                    "mode": 4,
+                    "material": "DefaultMaterial",
+                    "indices": "mesh_accessor_1",
+                    "attributes": {
+                        "POSITION": "mesh_accessor",
+                        "NORMAL": "mesh_accessor_0"
+                    }
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "<STL_BINARY>": {
+            "meshes": [
+                "mesh"
+            ]
+        }
+    },
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "<STL_BINARY>"
+            ]
+        }
+    },
+    "scene": "defaultScene"
+}
