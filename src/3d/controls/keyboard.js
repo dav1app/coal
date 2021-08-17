@@ -12,8 +12,15 @@ let moveBackward = false
 let moveLeft = false
 let moveRight = false
 
-const speed = 50.0
-const head_bob_frequency = 0.008
+let isWalking = false
+const isMoving = false
+
+const speedFast = 50.0
+const speedSlow = 20.0
+
+let speed = speedFast
+const head_bob_frequency = 0.01
+const head_bob_frequency_walking = 0.003
 const head_bob_amplitude = 0.008
 
 let prevTime = global.performance.now()
@@ -28,20 +35,21 @@ function setup () {
       case 'KeyW':
         moveForward = true
         break
-
       case 'ArrowLeft':
       case 'KeyA':
         moveLeft = true
         break
-
       case 'ArrowDown':
       case 'KeyS':
         moveBackward = true
         break
-
       case 'ArrowRight':
       case 'KeyD':
         moveRight = true
+        break
+      case 'ShiftLeft':
+        speed = speedSlow
+        isWalking = true
         break
     }
   }
@@ -52,21 +60,24 @@ function setup () {
       case 'KeyW':
         moveForward = false
         break
-
       case 'ArrowLeft':
       case 'KeyA':
         moveLeft = false
         break
-
       case 'ArrowDown':
       case 'KeyS':
         moveBackward = false
         break
-
       case 'ArrowRight':
       case 'KeyD':
         moveRight = false
         break
+      case 'ShiftLeft':
+        speed = speedFast
+        isWalking = false
+        break
+      default:
+        console.log(event.code)
     }
   }
 
@@ -85,14 +96,19 @@ AnimationLoop.add(() => {
   direction.x = Number(moveRight) - Number(moveLeft)
   direction.normalize()
 
-  if (moveForward || moveBackward) velocity.z -= direction.z * speed * delta
-  if (moveLeft || moveRight) velocity.x -= direction.x * speed * delta
+  if (moveForward || moveBackward) {
+    velocity.z -= direction.z * speed * delta
+  }
 
-  controls.moveRight(-velocity.x * delta)
+  if (moveLeft || moveRight) {
+    velocity.x -= direction.x * speed * delta
+  }
+
   controls.moveForward(-velocity.z * delta)
+  controls.moveRight(-velocity.x * delta)
 
   if (moveForward || moveBackward || moveLeft || moveRight) {
-    controls.getObject().position.y += Math.sin(time * head_bob_frequency) * head_bob_amplitude
+    controls.getObject().position.y += Math.sin(time * (isWalking ? head_bob_frequency_walking : head_bob_frequency)) * head_bob_amplitude
   }
 
   prevTime = time
