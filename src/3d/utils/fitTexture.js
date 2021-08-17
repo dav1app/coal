@@ -3,7 +3,10 @@ import { RepeatWrapping } from 'three'
 export function fitTextureToGeometry ({
   texture,
   geometry,
-  size
+  size: {
+    x,
+    y
+  }
 }) {
   texture.wrapS = RepeatWrapping
   texture.wrapT = RepeatWrapping
@@ -12,7 +15,6 @@ export function fitTextureToGeometry ({
   const dX = Math.abs(bbox.max.x - bbox.min.x)
   const dY = Math.abs(bbox.max.y - bbox.min.y)
   const dZ = Math.abs(bbox.max.z - bbox.min.z)
-  const repeat = Math.max(dX, dY, dZ) / size
-  texture.repeat.set(repeat, repeat)
+  texture.repeat.set(Math.max(dX, dY, dZ) / x, Math.max(dX, dY, dZ) / y)
   return texture
 }

@@ -27,12 +27,17 @@ async function setup () {
   const renderer = new Renderer()
 
   scene.add(camera)
+  scene.add(new PointLight({
+    x: -30,
+    y: 1,
+    z: -4
+  }))
   scene.add(new RedLight({
     x: 0,
     y: 4,
     z: -2.25
   }))
-  scene.add(new Floor())
+  scene.add(await new Floor())
 
   const sphere = new Sphere({
     w: 1,
