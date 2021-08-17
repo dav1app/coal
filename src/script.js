@@ -1,9 +1,7 @@
 import './style.css'
 import { Vector2 } from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
-import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 
 import PointLight from './3d/components/light/PointLight'
@@ -27,16 +25,19 @@ async function setup () {
   const renderer = new Renderer()
 
   scene.add(camera)
+
   scene.add(new PointLight({
     x: -30,
     y: 1,
     z: -4
   }))
+
   scene.add(new RedLight({
     x: 0,
     y: 4,
     z: -2.25
   }))
+
   scene.add(await new Floor())
 
   const sphere = new Sphere({
@@ -55,9 +56,6 @@ async function setup () {
 
   const renderScene = new RenderPass(scene, camera)
 
-  const effectFXAA = new ShaderPass(FXAAShader)
-  effectFXAA.uniforms.resolution.value.set(1 / Sizes.width, 1 / Sizes.height)
-
   const bloomPass = new UnrealBloomPass(new Vector2(Sizes.width, Sizes.height), 1.5, 0.4, 0.85)
   bloomPass.threshold = 0.21
   bloomPass.strength = 1.2
@@ -65,14 +63,10 @@ async function setup () {
   bloomPass.renderToScreen = true
 
   const composer = new EffectComposer(renderer)
-  composer.setSize(Sizes.width, Sizes.height)
   composer.addPass(renderScene)
-  composer.addPass(effectFXAA)
   composer.addPass(bloomPass)
 
   AnimationLoop.add(() => {
-    renderer.clear()
-
     camera.layers.set(1)
     composer.render()
 
