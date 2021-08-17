@@ -13,6 +13,8 @@ let moveLeft = false
 let moveRight = false
 
 const speed = 50.0
+const head_bob_frequency = 0.008
+const head_bob_amplitude = 0.008
 
 let prevTime = global.performance.now()
 const velocity = new Vector3()
@@ -89,7 +91,9 @@ AnimationLoop.add(() => {
   controls.moveRight(-velocity.x * delta)
   controls.moveForward(-velocity.z * delta)
 
-  controls.getObject().position.y += (velocity.y * delta)
+  if (moveForward || moveBackward || moveLeft || moveRight) {
+    controls.getObject().position.y += Math.sin(time * head_bob_frequency) * head_bob_amplitude
+  }
 
   prevTime = time
 })
