@@ -22,7 +22,7 @@ module.exports = merge(
       disableHostCheck: true,
       overlay: true,
       noInfo: true,
-
+      compress: true,
       after: function (app, server, compiler) {
         const port = server.options.port
         const https = server.options.https ? 's' : ''
