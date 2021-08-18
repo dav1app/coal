@@ -17,7 +17,7 @@ export class Floor {
     const floorMat = new MeshStandardMaterial({
       roughness: 0.8,
       color: 0xffffff,
-      metalness: 0.2,
+      metalness: 0.01,
       bumpScale: 0.001
     })
 

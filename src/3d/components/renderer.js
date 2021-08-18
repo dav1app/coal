@@ -11,7 +11,7 @@ export class Renderer {
       antialias: true,
       canvas: Canvas
     })
-    renderer.setPixelRatio(window.devicePixelRatio / 1.5)
+    renderer.setPixelRatio(window.devicePixelRatio / 2)
     renderer.shadowMap.enabled = true
     renderer.toneMapping = ACESFilmicToneMapping
     renderer.shadowMapSoft = true
@@ -23,7 +23,6 @@ export class Renderer {
     renderer.gammaInput = true
     renderer.gammaOutput = true
     renderer.outputEncoding = sRGBEncoding
-    renderer.autoClear = false
     renderer.setSize(Sizes.width, Sizes.height)
     renderer.setClearColor(0x0)
     _renderer = renderer

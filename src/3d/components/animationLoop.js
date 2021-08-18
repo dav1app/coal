@@ -13,7 +13,7 @@ export class AnimationLoop {
 
   static start () {
     console.log(_loop.length)
-    setTimeout(renderLoop, 1000 / 30)
+    setTimeout(renderLoop, 1000)
   }
 }
 

@@ -1,8 +1,8 @@
 import { PointLight as _PointLight } from 'three'
 
 export class PointLight {
-  constructor ({ x = 0, y = 0, z = -1 }) {
-    const light = new _PointLight(0xffffff, 10)
+  constructor ({ x = 0, y = 0, z = -1, i = 10 }) {
+    const light = new _PointLight(0xffffff, i)
     light.castShadow = true
     light.shadow.mapSize.width = 512 // default
     light.shadow.mapSize.height = 512 // default

@@ -21,7 +21,8 @@ const speedSlow = 20.0
 let speed = speedFast
 const head_bob_frequency = 0.01
 const head_bob_frequency_walking = 0.003
-const head_bob_amplitude = 0.008
+const head_bob_amplitude = 0.07
+const head_bob_amplitude_walking = 0.003
 
 let prevTime = global.performance.now()
 const velocity = new Vector3()
@@ -108,7 +109,7 @@ AnimationLoop.add(() => {
   controls.moveRight(-velocity.x * delta)
 
   if (moveForward || moveBackward || moveLeft || moveRight) {
-    controls.getObject().position.y += Math.sin(time * (isWalking ? head_bob_frequency_walking : head_bob_frequency)) * head_bob_amplitude
+    controls.getObject().position.y = -Math.abs(Math.sin(time * (isWalking ? head_bob_frequency_walking : head_bob_frequency))) * (isWalking ? head_bob_amplitude_walking : head_bob_amplitude)
   }
 
   prevTime = time
