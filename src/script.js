@@ -1,6 +1,7 @@
 import './style.css'
-import { Vector2 } from 'three'
+import { Vector2, ShaderMaterial, Layers } from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 
@@ -16,36 +17,47 @@ import { Floor } from './3d/components/floor'
 import { Mouse } from './3d/controls/mouse'
 import { AnimationLoop } from './3d/components/animationLoop'
 import { Sphere } from './3d/components/sphere'
+import { HUD } from './3d/components/hud'
 // import { Physics } from './3d/physics'
 
 async function setup () {
   const scene = new Scene()
+
+  const bloomLayer = new Layers()
+  bloomLayer.set(1)
+
   const camera = new Camera()
   camera.layers.enable(1)
   const renderer = new Renderer()
-
   scene.add(camera)
 
-  scene.add(new PointLight({
+  const hud = new HUD()
+
+  scene.add(hud)
+
+  const pointlight = new PointLight({
     x: -30,
     y: 1,
     z: -4
-  }))
+  })
+  scene.add(pointlight)
 
   scene.add(new RedLight({
     x: 0,
-    y: 4,
-    z: -2.25
+    y: 1,
+    z: -2.25,
+    intensity: 0.5
   }))
 
-  scene.add(await new Floor())
+  const floor = await new Floor()
+  scene.add(floor)
 
   const sphere = new Sphere({
     w: 1,
     h: 1,
     d: 1,
     x: 0,
-    y: 4,
+    y: 1,
     z: -2.25
   })
   sphere.layers.set(1)
@@ -54,7 +66,7 @@ async function setup () {
   Mouse()
   Keyboard()
 
-  const renderScene = new RenderPass(scene, camera)
+  const renderPass = new RenderPass(scene, camera)
 
   const bloomPass = new UnrealBloomPass(new Vector2(Sizes.width, Sizes.height), 1.5, 0.4, 0.85)
   bloomPass.threshold = 0.21
@@ -62,17 +74,53 @@ async function setup () {
   bloomPass.radius = 0.55
   bloomPass.renderToScreen = true
 
-  const composer = new EffectComposer(renderer)
-  composer.addPass(renderScene)
-  composer.addPass(bloomPass)
+  const bloomComposer = new EffectComposer(renderer)
+  bloomComposer.renderToScreen = false
+  bloomComposer.addPass(renderPass)
+  bloomComposer.addPass(bloomPass)
+
+  const shaderPass = new ShaderPass(
+    new ShaderMaterial({
+      uniforms: {
+        baseTexture: { value: null },
+        bloomTexture: { value: bloomComposer.renderTarget2.texture }
+      },
+      vertexShader: `
+      varying vec2 vUv;
+
+      void main() {
+
+          vUv = uv;
+
+          gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+      }`,
+      fragmentShader: `
+      uniform sampler2D baseTexture;
+			uniform sampler2D bloomTexture;
+
+			varying vec2 vUv;
+
+			void main() {
+
+				gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
+
+			}
+      `,
+      defines: {}
+    }),
+    'baseTexture'
+  )
+  shaderPass.needsSwap = true
+
+  const finalComposer = new EffectComposer(renderer)
+  finalComposer.addPass(renderPass)
+  finalComposer.addPass(shaderPass)
 
   AnimationLoop.add(() => {
-    camera.layers.set(1)
-    composer.render()
-
-    renderer.clearDepth()
-    camera.layers.set(0)
-    renderer.render(scene, camera)
+    // scene.traverse(darkenNonBloomed)
+    bloomComposer.render()
+    // scene.traverse(restoreMaterial)
+    finalComposer.render()
   })
 
   AnimationLoop.start()
