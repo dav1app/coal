@@ -2,6 +2,9 @@ import { PlaneBufferGeometry, MeshStandardMaterial, Mesh, RepeatWrapping, sRGBEn
 import { TextureLoader } from './textureLoader'
 import { fitTextureToGeometry } from '../utils/fitTexture'
 
+const h = 1.2
+const w = 2 * h
+
 let _floor
 
 export class Floor {
@@ -21,7 +24,7 @@ export class Floor {
       bumpScale: 0.001
     })
 
-    const floorGeometry = new PlaneBufferGeometry(200, 200)
+    const floorGeometry = new PlaneBufferGeometry(2, 200)
     const t1 = await new TextureLoader('hardwood2_diffuse.jpg')
     t1.wrapS = RepeatWrapping
     t1.wrapT = RepeatWrapping
@@ -32,8 +35,8 @@ export class Floor {
       texture: t1,
       geometry: floorGeometry,
       size: {
-        x: 1.0,
-        y: 2.4
+        w,
+        h
       }
     })
     floorMat.needsUpdate = true
@@ -46,8 +49,8 @@ export class Floor {
       texture: t2,
       geometry: floorGeometry,
       size: {
-        x: 1.0,
-        y: 2.4
+        w,
+        h
       }
     })
     floorMat.needsUpdate = true
@@ -61,8 +64,7 @@ export class Floor {
       texture: t1,
       geometry: floorGeometry,
       size: {
-        x: 1.0,
-        y: 2.4
+        w, h
       }
     })
     floorMat.needsUpdate = true

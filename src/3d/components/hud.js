@@ -1,5 +1,5 @@
 
-import { Scene, Texture, Mesh, MeshBasicMaterial, PlaneGeometry } from 'three'
+import { Scene, Texture, Mesh, MeshBasicMaterial, PlaneGeometry, Group } from 'three'
 import { Sizes } from '../configs/sizes'
 
 export class HUD {
@@ -8,22 +8,33 @@ export class HUD {
 
     // Get 2D context and draw something supercool.
     const hudBitmap = hudCanvas.getContext('2d')
-    hudBitmap.font = 'Normal 40px Times New Roman'
-    hudBitmap.textAlign = 'center'
-    hudBitmap.fillStyle = 'rgba(245,245,245,1)'
-    hudBitmap.textBaseline = 'middle'
-    hudBitmap.textAlign = 'center'
-    const text = 'Initializing...'
-    hudBitmap.fillText(text, hudBitmap.measureText(text).width / 2, 20)
+    const fontSize = 20
+    hudBitmap.fillStyle = 'white'
+    hudBitmap.font = `Normal ${fontSize}px Times New Roman`
+
+    const text = '<-- Chose your side -->'
+    hudBitmap.fillText(text, 0, fontSize)
 
     const hudTexture = new Texture(hudCanvas)
     hudTexture.needsUpdate = true
 
-    const material = new MeshBasicMaterial({ map: hudTexture })
+    const material = new MeshBasicMaterial({
+      map: hudTexture,
+      color: 'white'
+    })
+
+    const material2 = new MeshBasicMaterial({
+      color: 'green'
+    })
+
     material.transparent = true
 
-    const planeGeometry = new PlaneGeometry(1, 1)
-    const plane = new Mesh(planeGeometry, material)
-    return plane
+    const planeGeometry = new PlaneGeometry(0.5, 0.25)
+    const group = new Group()
+    const mesh = new Mesh(planeGeometry, material)
+    mesh.layers.enable(1)
+    group.add(mesh)
+
+    return group
   }
 }

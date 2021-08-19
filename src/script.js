@@ -1,87 +1,91 @@
 import './style.css'
-import { Vector2, ShaderMaterial, Layers, MeshBasicMaterial, Mesh } from 'three'
+import { Vector2, ShaderMaterial, Layers, MeshBasicMaterial, Mesh, AmbientLight, Vector3 } from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass'
-
 import PointLight from './3d/components/light/PointLight'
 import { RedLight } from './3d/components/light/RedLight'
 import { Keyboard } from './3d/controls/keyboard'
 import { Camera } from './3d/components/camera'
-import { Cube } from './3d/components/cube'
 import { Renderer } from './3d/components/renderer'
 import { Scene } from './3d/components/scene'
 import { Sizes } from './3d/configs/sizes'
 import { Floor } from './3d/components/floor'
 import { Mouse } from './3d/controls/mouse'
 import { AnimationLoop } from './3d/components/animationLoop'
-import { GlowingSphere } from './3d/components/glowingSphere'
-import { Sphere } from './3d/components/sphere'
 import { HUD } from './3d/components/hud'
+import { Door } from './3d/components/door'
+import { Howl } from 'howler'
 // import { Physics } from './3d/physics'
 
 async function setup () {
+  const sound = new Howl({
+    src: 'dark-ambient.mp3',
+    autoplay: true,
+    loop: true
+  })
+
+  sound.play()
   const vertexShader = 'varying vec2 vUv;void main(){vUv = uv;gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );}'
   const fragmentShader = 'uniform sampler2D baseTexture;uniform sampler2D bloomTexture;varying vec2 vUv;void main() {	gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );}'
   const scene = new Scene()
   const materials = {}
 
+  const ambientLight = new AmbientLight(0x404040, 0.5)
+  scene.add(ambientLight)
   const bloomLayer = new Layers()
   bloomLayer.set(1)
 
-  const camera = new Camera()
-  const renderer = new Renderer()
+  const hud = new HUD()
 
+  const camera = new Camera(hud)
   scene.add(camera)
 
-  const hud = new HUD()
-  hud.layers.enable(1)
-
-  scene.add(hud)
-
-  const pointlight = new PointLight({
-    x: -30,
-    y: 1,
-    z: -4,
-    i: 10
-  })
-  scene.add(pointlight)
+  const renderer = new Renderer()
 
   const floor = await new Floor()
   scene.add(floor)
 
-  const glowingSphere = new GlowingSphere({
+  const whiteLight = new PointLight({
+    x: 0,
+    y: 1,
+    z: 50,
+    i: 1
+  })
+  scene.add(whiteLight)
+
+  const door1 = new Door({
+    w: 2,
+    h: 1,
+    d: 1,
+    x: 0,
+    z: 50,
+    c: 0xffffff
+  })
+  door1.layers.enable(1)
+  scene.add(door1)
+
+  const door2 = new Door({
     w: 1,
     h: 1,
     d: 1,
     x: 0,
-    y: 1,
-    z: -2.25
+    z: -50,
+    c: 0xff0000
   })
 
-  glowingSphere.layers.enable(1)
-  scene.add(glowingSphere)
+  door2.layers.enable(1)
+  scene.add(door2)
 
   const redLight = new RedLight({
     x: 0,
     y: 1,
-    z: -2.25,
+    z: -50,
     i: 1
   })
 
   scene.add(redLight)
-
-  const sphere = new Sphere({
-    w: 1,
-    h: 1,
-    d: 1,
-    x: 2,
-    y: 2,
-    z: -2.25
-  })
-
-  scene.add(sphere)
 
   Mouse()
   Keyboard()

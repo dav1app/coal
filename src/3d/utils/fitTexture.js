@@ -4,8 +4,8 @@ export function fitTextureToGeometry ({
   texture,
   geometry,
   size: {
-    x,
-    y
+    w,
+    h
   }
 }) {
   texture.wrapS = RepeatWrapping
@@ -14,7 +14,10 @@ export function fitTextureToGeometry ({
   const bbox = geometry.boundingBox
   const dX = Math.abs(bbox.max.x - bbox.min.x)
   const dY = Math.abs(bbox.max.y - bbox.min.y)
-  const dZ = Math.abs(bbox.max.z - bbox.min.z)
-  texture.repeat.set(Math.max(dX, dY, dZ) / x, Math.max(dX, dY, dZ) / y)
+
+  console.log(dX, dY)
+
+  texture.repeat.set(dX / w, dY / h)
+
   return texture
 }

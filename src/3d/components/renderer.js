@@ -11,7 +11,7 @@ export class Renderer {
       antialias: true,
       canvas: Canvas
     })
-    renderer.setPixelRatio(window.devicePixelRatio / 2)
+    renderer.setPixelRatio(window.devicePixelRatio / 1)
     renderer.shadowMap.enabled = true
     renderer.toneMapping = ACESFilmicToneMapping
     renderer.shadowMapSoft = true

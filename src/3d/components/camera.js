@@ -9,14 +9,18 @@ const NEAR = 400
 let _camera
 
 export class Camera {
-  constructor () {
+  constructor (child) {
     _camera = new PerspectiveCamera(
       FOV,
       Sizes.width / Sizes.height,
       1,
       10000
     )
-    _camera.position.set(0, 0, 10)
+    _camera.position.set(0, 0, 0)
+    if (child) {
+      _camera.add(child)
+      child.position.set(0, 0, -2)
+    }
     return _camera
   }
 
