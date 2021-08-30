@@ -15,8 +15,6 @@ export function fitTextureToGeometry ({
   const dX = Math.abs(bbox.max.x - bbox.min.x)
   const dY = Math.abs(bbox.max.y - bbox.min.y)
 
-  console.log(dX, dY)
-
   texture.repeat.set(dX / w, dY / h)
 
   return texture
