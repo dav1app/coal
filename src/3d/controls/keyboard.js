@@ -77,8 +77,6 @@ function setup () {
         speed = speedFast
         isWalking = false
         break
-      default:
-        console.log(event.code)
     }
   }
 
