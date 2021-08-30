@@ -6,7 +6,6 @@ import {
 } from 'three'
 import { Floor } from './floor'
 import { addHeightOffset } from '../utils/addHeightOffset'
-import { Box, Vec3 } from 'oimo'
 import { World } from './world'
 
 const _cube = {}
