@@ -3,8 +3,8 @@ import { PerspectiveCamera } from 'three'
 import { Sizes } from '../configs/sizes'
 
 const FOV = 50
-const FAR = 1200
-const NEAR = 400
+const FAR = 100000
+const NEAR = 0.1
 
 let _camera
 
@@ -13,8 +13,8 @@ export class Camera {
     _camera = new PerspectiveCamera(
       FOV,
       Sizes.width / Sizes.height,
-      1,
-      10000
+      NEAR,
+      FAR
     )
     _camera.position.set(0, 0, 0)
     if (child) {
