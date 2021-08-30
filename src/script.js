@@ -7,7 +7,6 @@ import { Cube } from './3d/components/cube'
 import { Camera } from './3d/components/camera'
 import { Renderer } from './3d/components/renderer'
 import { Scene } from './3d/components/scene'
-import { Sizes } from './3d/configs/sizes'
 import { Floor } from './3d/components/floor'
 import { Mouse } from './3d/controls/mouse'
 import { AnimationLoop } from './3d/components/animationLoop'
@@ -34,8 +33,8 @@ async function setup () {
   const hud = new HUD()
   const camera = new Camera(hud)
 
-  const ambientLight = new AmbientLight(0x404040, 10)
-  universe.graphics.add(ambientLight)
+  // const ambientLight = new AmbientLight(0x404040, 10)
+  // universe.graphics.add(ambientLight)
 
   const bloomLayer = new Layers()
   bloomLayer.set(1)
@@ -45,10 +44,8 @@ async function setup () {
 
   universe.add(floor)
 
-  // // physics.addMesh(floor)
-
   const cube = await new Cube({
-    y: 2,
+    y: 4,
     x: 0,
     z: -5
   })
@@ -115,19 +112,28 @@ async function setup () {
     bloomLayer
   })
 
-  console.log(floor.physics)
   const quaternion = cube.physics.getQuaternion()
-  console.log(quaternion)
+
+  let memory = ''
 
   AnimationLoop.add(() => {
     universe.physics.step()
+  })
 
+  AnimationLoop.add(() => {
     cube.graphics.position.set(...Object.values(cube.physics.getPosition()))
     cube.graphics.quaternion.set(...Object.values(cube.physics.getQuaternion()))
+
+    if (Object.values(cube.graphics.position).toString() !== memory) {
+      memory = Object.values(cube.graphics.position).toString()
+    }
+  })
+
+  AnimationLoop.add(() => {
     renderer.render(scene, camera)
   })
 
-  // AnimationLoop.start()
+  AnimationLoop.start()
 }
 
 async function main () {
