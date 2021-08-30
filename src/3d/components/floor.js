@@ -72,8 +72,6 @@ export class Floor {
     graphics.position.x = x
     graphics.position.z = z
 
-    console.log('floor', w, h, d, x, y, z)
-
     const physics = {
       type: 'box',
       size: [w, h, d],
