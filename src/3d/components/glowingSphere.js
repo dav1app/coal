@@ -15,7 +15,7 @@ export class GlowingSphere {
     sphere.glow = true
     sphere.position.x = x
     sphere.position.z = z
-    sphere.position.y = Floor.current() ? addHeightOffset(Floor.current().position.y + h / 2) + y : y
+    sphere.position.y = Floor.current().graphics ? addHeightOffset(Floor.current().position.y + h / 2) + y : y
     return sphere
   }
 }

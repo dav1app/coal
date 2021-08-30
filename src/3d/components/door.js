@@ -16,9 +16,7 @@ export class Door {
     box.position.x = x
     box.position.z = z
 
-    console.log(Floor.current().position.y, y, h)
-
-    box.position.y = Floor.current() ? addHeightOffset(-1.5 + (h * 2)) + y : y
+    box.position.y = Floor.current().graphics ? addHeightOffset(-1.5 + (h * 2)) + y : y
     return box
   }
 }
