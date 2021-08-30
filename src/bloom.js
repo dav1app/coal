@@ -71,6 +71,4 @@ export function RenderBloom ({
     scene.traverse(restoreMaterial)
     finalComposer.render()
   })
-
-  AnimationLoop.start()
 }
