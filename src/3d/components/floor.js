@@ -12,7 +12,7 @@ const textureSize = {
 }
 
 export class Floor {
-  constructor ({ x = 0, y = -1.5, z = 0, w = 2, h = 200, d = 0.000001 } = {}) {
+  constructor ({ x = 0, y = -1.5, z = 0, w = 2, h = 200, d = addHeightOffset(0) } = {}) {
     return this.load({ x, y, z, w, h, d })
   }
 
@@ -56,7 +56,7 @@ export class Floor {
     t3.wrapS = RepeatWrapping
     t3.wrapT = RepeatWrapping
     t3.anisotropy = 4
-    material.roughnessMap = t3
+    // material.roughnessMap = t3
     material.bumpMap = fitTextureToGeometry({
       texture: t1,
       geometry,
@@ -72,19 +72,18 @@ export class Floor {
     graphics.position.x = x
     graphics.position.z = z
 
-    console.log(x, y, z)
+    console.log('floor', w, h, d, x, y, z)
+
     const physics = {
       type: 'box',
       size: [w, h, d],
-      pos: [x, addHeightOffset(y - 0.1), z],
+      pos: [x, y, z],
       rot: [90, 0, 0],
       move: false,
       density: 1,
       friction: 0.2,
       restitution: 0.2
     }
-
-    console.log(physics)
 
     _floor.graphics = graphics
     _floor.physics = World.current().add(physics)
