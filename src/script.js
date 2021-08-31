@@ -19,13 +19,13 @@ import { Universe } from './3d/components/universe'
 import { World } from './3d/components/world'
 
 async function setup () {
-  // const sound = new Howl({
-  //   src: 'dark-ambient.mp3',
-  //   autoplay: true,
-  //   loop: true
-  // })
+  const sound = new Howl({
+    src: 'dark-ambient.mp3',
+    autoplay: true,
+    loop: true
+  })
 
-  // sound.play()
+  sound.play()
 
   const world = new World()
   const scene = new Scene()
@@ -33,8 +33,8 @@ async function setup () {
   const hud = new HUD()
   const camera = new Camera(hud)
 
-  // const ambientLight = new AmbientLight(0x404040, 10)
-  // universe.graphics.add(ambientLight)
+  const ambientLight = new AmbientLight(0x404040, 3)
+  universe.graphics.add(ambientLight)
 
   const bloomLayer = new Layers()
   bloomLayer.set(1)
@@ -46,7 +46,7 @@ async function setup () {
 
   const cube = await new Cube({
     y: 4,
-    x: 0,
+    x: -1,
     z: -5
   })
   universe.add(cube)
@@ -62,7 +62,6 @@ async function setup () {
     y: 0,
     z: 1
   })
-  cabinLight.target = cabin
   scene.add(cabinLight)
 
   const whiteLight = new PointLight({
