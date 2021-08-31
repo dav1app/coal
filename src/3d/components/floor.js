@@ -74,9 +74,8 @@ export class Floor {
 
     const physics = {
       type: 'box',
-      size: [w, h, d],
+      size: [w, d, h],
       pos: [x, y, z],
-      rot: [90, 0, 0],
       move: false,
       density: 1,
       friction: 0.2,
