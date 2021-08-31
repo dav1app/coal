@@ -112,10 +112,6 @@ async function setup () {
     bloomLayer
   })
 
-  const quaternion = cube.physics.getQuaternion()
-
-  let memory = ''
-
   AnimationLoop.add(() => {
     universe.physics.step()
   })
@@ -123,10 +119,6 @@ async function setup () {
   AnimationLoop.add(() => {
     cube.graphics.position.set(...Object.values(cube.physics.getPosition()))
     cube.graphics.quaternion.set(...Object.values(cube.physics.getQuaternion()))
-
-    if (Object.values(cube.graphics.position).toString() !== memory) {
-      memory = Object.values(cube.graphics.position).toString()
-    }
   })
 
   AnimationLoop.add(() => {
