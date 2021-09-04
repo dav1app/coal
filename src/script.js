@@ -1,5 +1,5 @@
 import './style.css'
-import { Layers, AmbientLight, Vector3 } from 'three'
+import { Layers, AmbientLight } from 'three'
 import PointLight from './3d/components/light/PointLight'
 import { RedLight } from './3d/components/light/RedLight'
 import { Keyboard } from './3d/controls/keyboard'
