@@ -28,6 +28,10 @@ export class Renderer {
     renderer.setClearColor(0x0)
     _renderer = renderer
 
+    window.addEventListener('resize', () => {
+      _renderer.setSize(Sizes.width, Sizes.height)
+    })
+
     return _renderer
   }
 

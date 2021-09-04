@@ -21,6 +21,12 @@ export class Camera {
       _camera.add(child)
       child.position.set(0, 0, -2)
     }
+
+    window.addEventListener('resize', () => {
+      _camera.aspect = Sizes.width / Sizes.height
+      _camera.updateProjectionMatrix()
+    })
+
     return _camera
   }
 

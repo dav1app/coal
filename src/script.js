@@ -27,7 +27,7 @@ async function setup () {
 
   sound.play()
 
-  const world = new World()
+  new World()
   const scene = new Scene()
   const universe = new Universe()
   const hud = new HUD()
