@@ -1,8 +1,8 @@
 {
-  "name": "coal",
+  "name": "mixzoid",
   "main": "./dist/index.html",
   "window": {
-    "title": "coal",
+    "title": "mixzoid",
     "toolbar": true,
     "show_in_taskbar": true,
     "show": true,
@@ -13,7 +13,8 @@
     "build": "webpack --config ./bundler/webpack.prod.js",
     "dev": "webpack serve --config ./bundler/webpack.dev.js",
     "lint": "standard --fix ./src",
-    "start": "nw"
+    "start": "nw",
+    "doc": "jsdoc --destination doc --configure jsdoc.json -r src"
   },
   "dependencies": {
     "@babel/core": "^7.12.10",
@@ -43,6 +44,7 @@
     "webpack-merge": "^5.7.3"
   },
   "devDependencies": {
+    "jsdoc": "^3.6.7",
     "standard": "^16.0.3",
     "standardjs": "^1.0.0-alpha"
   }

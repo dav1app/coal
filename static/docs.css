@@ -1,0 +1,24 @@
+html, body, section {
+    background-color: black;
+    color: white;
+}
+
+:not(pre) > code {
+    font-family: monospace;
+    color: white;
+    background-color: #333;
+    padding
+}
+
+a {
+    color: #0000ff !important;
+}
+
+thead > tr > th {
+    background-color: black
+}
+
+pre.prettyprint {
+    background-color: #111;
+    padding: 13px;
+}

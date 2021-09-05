@@ -39,26 +39,6 @@ export class Actor {
       _actor.graphics.position.set(...Object.values(_actor.physics.getPosition()))
       _actor.physics.position.x = Camera.current().position.x
       _actor.physics.position.z = Camera.current().position.z
-
-      //   const newX =
-      //   //   const newX = _actor.physics.getPosition().x
-      //   const newZ = _actor.physics.getPosition().z// _actor.graphics.position.z
-      //   const newY = _actor.physics.getPosition().y
-
-      //   _actor.physics.setPosition({
-      //     x: newX,
-      //     y: newY,
-      //     z: newZ
-      //   })
-
-      // _actor.graphics.position.set(newX, newY, newZ)
-
-    //   _actor.graphics.position.set(newX, newY, newZ)
-    //   _actor.physics.setPosition({
-    //     x: newX,
-    //     y: newY,
-    //     z: newZ
-    //   })
     })
 
     return _actor
