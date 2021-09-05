@@ -2,8 +2,8 @@
 import { Vector3 } from 'three'
 import { AnimationLoop } from '../components/animationLoop'
 import { Controls } from './controls'
+import { keyboardControls } from '../configs/keyboardControls'
 import { Actor } from '../components/actor'
-import { arrayEqual } from '../utils/arrayEqual'
 
 let _keyboard
 
@@ -32,20 +32,16 @@ export class Keyboard {
     _keyboard = Controls.current()
     const onKeyDown = function (event) {
       switch (event.code) {
-        case 'ArrowUp':
-        case 'KeyW':
+        case keyboardControls.moveForward:
           moveForward = true
           break
-        case 'ArrowLeft':
-        case 'KeyA':
+        case keyboardControls.moveLeft:
           moveLeft = true
           break
-        case 'ArrowDown':
-        case 'KeyS':
+        case keyboardControls.moveBackward:
           moveBackward = true
           break
-        case 'ArrowRight':
-        case 'KeyD':
+        case keyboardControls.moveRight:
           moveRight = true
           break
         case 'ShiftLeft':
@@ -57,20 +53,16 @@ export class Keyboard {
 
     const onKeyUp = function (event) {
       switch (event.code) {
-        case 'ArrowUp':
-        case 'KeyW':
+        case keyboardControls.moveForward:
           moveForward = false
           break
-        case 'ArrowLeft':
-        case 'KeyA':
+        case keyboardControls.moveLeft:
           moveLeft = false
           break
-        case 'ArrowDown':
-        case 'KeyS':
+        case keyboardControls.moveBackward:
           moveBackward = false
           break
-        case 'ArrowRight':
-        case 'KeyD':
+        case keyboardControls.moveRight:
           moveRight = false
           break
         case 'ShiftLeft':
