@@ -14,7 +14,6 @@ export class EventLoop {
     if (!_loop[event]) {
       _loop[event] = []
       window.addEventListener(event, () => {
-        console.log('executing event', event)
         executeLoop(event)
       })
     }
@@ -22,11 +21,9 @@ export class EventLoop {
     switch (true) {
       case options?.before:
         _loop[event].unshift(callback)
-        console.log(_loop[event])
         break
       default:
         _loop[event].push(callback)
-        console.log(_loop[event])
     }
   }
 }

@@ -17,6 +17,6 @@ export class AnimationLoop {
 }
 
 window.onerror = (event) => {
-  console.log('Stop!')
-  window.cancelAnimationFrame(animationFrame)
+  debugger
+  window.cancelAnimationFrame(animationFrame)()
 }

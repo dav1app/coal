@@ -12,6 +12,7 @@
   "scripts": {
     "build": "webpack --config ./bundler/webpack.prod.js",
     "dev": "webpack serve --config ./bundler/webpack.dev.js",
+    "lint": "standard --fix ./src",
     "start": "nw"
   },
   "dependencies": {

@@ -7,6 +7,7 @@ import {
 import { Floor } from './floor'
 import { addHeightOffset } from '../utils/addHeightOffset'
 import { World } from './world'
+import { AnimationLoop } from './animationLoop'
 
 const _cube = {}
 
@@ -45,6 +46,11 @@ export class Cube {
 
     _cube.graphics = graphics
     _cube.physics = World.current().add(physics)
+
+    AnimationLoop.add(() => {
+      _cube.graphics.position.set(...Object.values(_cube.physics.getPosition()))
+      _cube.graphics.quaternion.set(...Object.values(_cube.physics.getQuaternion()))
+    })
 
     return _cube
   }

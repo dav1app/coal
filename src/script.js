@@ -1,5 +1,5 @@
 import './style.css'
-import { Layers, AmbientLight } from 'three'
+import { Layers, AmbientLight, PerspectiveCamera } from 'three'
 import PointLight from './3d/components/light/PointLight'
 import { RedLight } from './3d/components/light/RedLight'
 import { Keyboard } from './3d/controls/keyboard'
@@ -17,15 +17,18 @@ import { GLTFModel } from './3d/components/GLTFModel'
 import { RenderBloom } from './bloom'
 import { Universe } from './3d/components/universe'
 import { World } from './3d/components/world'
+import { Actor } from './3d/components/actor'
+import { Sizes } from './3d/configs/sizes'
+import { Controls } from './3d/controls/controls'
 
 async function setup () {
-  const sound = new Howl({
-    src: 'dark-ambient.mp3',
-    autoplay: true,
-    loop: true
-  })
+  // const sound = new Howl({
+  //   src: 'dark-ambient.mp3',
+  //   autoplay: true,
+  //   loop: true
+  // })
 
-  sound.play()
+  // sound.play()
 
   new World()
   const scene = new Scene()
@@ -33,7 +36,7 @@ async function setup () {
   const hud = new HUD()
   const camera = new Camera(hud)
 
-  const ambientLight = new AmbientLight(0x404040, 3)
+  const ambientLight = new AmbientLight(0x404040, 1)
   universe.graphics.add(ambientLight)
 
   const bloomLayer = new Layers()
@@ -44,10 +47,13 @@ async function setup () {
 
   universe.add(floor)
 
+  const actor = new Actor()
+  universe.add(actor)
+
   const cube = await new Cube({
     y: 4,
     x: -1,
-    z: -5
+    z: -6
   })
   universe.add(cube)
 
@@ -102,22 +108,15 @@ async function setup () {
     i: 1
   }))
 
-  Mouse()
-  Keyboard()
+  new Controls()
+  new Mouse()
+  new Keyboard()
+
   RenderBloom({
     renderer,
     scene,
     camera,
     bloomLayer
-  })
-
-  AnimationLoop.add(() => {
-    universe.physics.step()
-  })
-
-  AnimationLoop.add(() => {
-    cube.graphics.position.set(...Object.values(cube.physics.getPosition()))
-    cube.graphics.quaternion.set(...Object.values(cube.physics.getQuaternion()))
   })
 
   AnimationLoop.add(() => {

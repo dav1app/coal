@@ -12,7 +12,7 @@ const textureSize = {
 }
 
 export class Floor {
-  constructor ({ x = 0, y = -1.5, z = 0, w = 2, h = 200, d = addHeightOffset(0) } = {}) {
+  constructor ({ x = 0, y = 0, z = 0, w = 2, h = 200, d = addHeightOffset(0) } = {}) {
     return this.load({ x, y, z, w, h, d })
   }
 
