@@ -1,4 +1,4 @@
-import { Scene as _Scene, Color } from 'three'
+import { Scene as _Scene } from 'three'
 let _scene
 
 export class Scene {

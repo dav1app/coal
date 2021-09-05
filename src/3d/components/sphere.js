@@ -1,8 +1,7 @@
 import {
   Mesh,
   SphereBufferGeometry,
-  MeshBasicMaterial,
-  PointLight
+  MeshBasicMaterial
 } from 'three'
 import { Floor } from './floor'
 import { addHeightOffset } from '../utils/addHeightOffset'

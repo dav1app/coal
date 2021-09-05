@@ -1,4 +1,4 @@
-import { SpotLight as _SpotLight, SpotLightHelper, Group } from 'three'
+import { SpotLight as _SpotLight } from 'three'
 
 export class SpotLight {
   constructor ({ x, y, z }) {

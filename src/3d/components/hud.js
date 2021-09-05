@@ -1,6 +1,5 @@
 
-import { Scene, Texture, Mesh, MeshBasicMaterial, PlaneGeometry, Group } from 'three'
-import { Sizes } from '../configs/sizes'
+import { Texture, Mesh, MeshBasicMaterial, PlaneGeometry, Group } from 'three'
 
 export class HUD {
   constructor () {
@@ -21,10 +20,6 @@ export class HUD {
     const material = new MeshBasicMaterial({
       map: hudTexture,
       color: 'white'
-    })
-
-    const material2 = new MeshBasicMaterial({
-      color: 'green'
     })
 
     material.transparent = true
