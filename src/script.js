@@ -1,5 +1,5 @@
 import './style.css'
-import { Layers, AmbientLight, PerspectiveCamera } from 'three'
+import { Layers, AmbientLight } from 'three'
 import PointLight from './3d/components/light/PointLight'
 import { RedLight } from './3d/components/light/RedLight'
 import { Keyboard } from './3d/controls/keyboard'
@@ -34,7 +34,7 @@ async function setup () {
   const scene = new Scene()
   const universe = new Universe()
   const hud = new HUD()
-  const camera = new Camera(hud)
+  const camera = new Camera({ child: hud })
 
   const ambientLight = new AmbientLight(0x404040, 1)
   universe.graphics.add(ambientLight)
