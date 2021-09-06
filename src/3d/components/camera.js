@@ -18,7 +18,7 @@ export class Camera {
    * @example
    * const universe = new Universe()
    * const camera = new Camera()
-   * universe.graphics.add(camera) //or scene.add(camera)
+   * universe.graphics.add(camera) // or scene.add(camera)
    */
   constructor ({ child }) {
     _camera = new PerspectiveCamera(

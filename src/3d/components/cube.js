@@ -13,8 +13,8 @@ import { AnimationLoop } from './animationLoop'
  * The main class for the cube to be used with <b>mixzoid,/b>.
  * @class Cube
  * @typedef {Object} mzCube
- * @property {THREE.Mesh} mzCube.graphics - The graphics object.
- * @property {OIMO.Body} mzCube.physics - The physics object
+ * @property {THREE.Mesh} graphics - The graphics object.
+ * @property {OIMO.Body} physics - The physics object
  */
 
 const _cube = {}
@@ -27,7 +27,6 @@ const _cube = {}
 export class Cube {
   /**
    * Creates a new cube.
-   * @class Cube
    * @constructor
    * @param {parameters} parameters The parameters of the cube.
    * @param {float} parameters.x The x position of the cube.

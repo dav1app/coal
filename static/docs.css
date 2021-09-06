@@ -1,21 +1,26 @@
 html, body, section {
-    background-color: black;
-    color: white;
+    background-color: #020304;
+    color: #FDFCFA;
 }
 
 :not(pre) > code {
     font-family: monospace;
-    color: white;
+    color: #FDFCFA !important;
     background-color: #333;
-    padding
+    padding: 5px;
+    border-radius: 3px;
 }
 
 a {
-    color: #0000ff !important;
+    color: #00CCCC!important;
 }
 
 thead > tr > th {
-    background-color: black
+    background-color: #020304
+}
+
+td {
+    margin: 4px
 }
 
 pre.prettyprint {
