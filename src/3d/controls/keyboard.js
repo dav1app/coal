@@ -1,9 +1,8 @@
 
 import { Vector3 } from 'three'
 import { AnimationLoop } from '../components/animationLoop'
-import { Controls } from './controls'
 import { keyboardControls } from '../configs/keyboardControls'
-import { Actor } from '../components/actor'
+import { EventLoop } from '../components/eventLoop'
 
 let _keyboard
 
@@ -28,9 +27,23 @@ const velocity = new Vector3()
 const direction = new Vector3()
 
 export class Keyboard {
-  constructor () {
-    _keyboard = Controls.current()
-    const onKeyDown = function (event) {
+  constructor ({
+    actor
+  } = {}) {
+    this._vector = new Vector3()
+
+    this.moveForward = function (distance) {
+      this._vector.setFromMatrixColumn(actor.matrix, 0)
+      this._vector.crossVectors(actor.up, this._vector)
+      actor.position.addScaledVector(this._vector, distance)
+    }
+
+    this.moveRight = function (distance) {
+      this._vector.setFromMatrixColumn(actor.matrix, 0)
+      actor.position.addScaledVector(this._vector, distance)
+    }
+
+    EventLoop.add('keydown', (event) => {
       switch (event.code) {
         case keyboardControls.moveForward:
           moveForward = true
@@ -49,9 +62,9 @@ export class Keyboard {
           isWalking = true
           break
       }
-    }
+    })
 
-    const onKeyUp = function (event) {
+    EventLoop.add('keyup', (event) => {
       switch (event.code) {
         case keyboardControls.moveForward:
           moveForward = false
@@ -70,10 +83,7 @@ export class Keyboard {
           isWalking = false
           break
       }
-    }
-
-    document.addEventListener('keydown', onKeyDown)
-    document.addEventListener('keyup', onKeyUp)
+    })
 
     AnimationLoop.add(() => {
       const time = global.performance.now()
@@ -94,16 +104,14 @@ export class Keyboard {
         velocity.x -= direction.x * speed * delta
       }
 
-      _keyboard.moveForward(-velocity.z * delta)
-      _keyboard.moveRight(-velocity.x * delta)
+      this.moveForward(-velocity.z * delta)
+      this.moveRight(-velocity.x * delta)
 
       let wooble = 0
 
       if (moveForward || moveBackward || moveLeft || moveRight) {
         wooble = -Math.abs(Math.sin(time * (isWalking ? headBobFrequencyWalking : headBobFrequency))) * (isWalking ? headBobAmplitudeWalking : headBobAmplitude)
       }
-
-      _keyboard.getObject().position.y = (Actor.current().physics.getPosition().y) + wooble
 
       prevTime = time
     })

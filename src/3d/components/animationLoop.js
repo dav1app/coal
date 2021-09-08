@@ -17,6 +17,5 @@ export class AnimationLoop {
 }
 
 window.onerror = (event) => {
-  debugger
   window.cancelAnimationFrame(animationFrame)()
 }

@@ -11,8 +11,6 @@ import { Door } from './3d/components/door'
 import { Howl } from 'howler'
 import { Universe } from './3d/components/universe'
 import { Actor } from './3d/components/actor'
-import { Controls } from './3d/controls/controls'
-
 // const sound = new Howl({
 //   src: 'dark-ambient.mp3',
 //   autoplay: true,
@@ -22,15 +20,47 @@ import { Controls } from './3d/controls/controls'
 // sound.play()
 
 (async function () {
-  const universe = new Universe() // Creates the renderer, the scene, the world.
-  await universe.add(new Camera({ child: new HUD() })) // Add a new camera
-  await universe.add(new AmbientLight()) // Adds a new ambient light.
-  await universe.add(new Floor()) // Adds a floor. Floors cannot move on the universe.
-  await universe.add(new Actor()) // Adds an actor to the universe. Camera should be attached to it.
+  const universe = new Universe()
+  await universe.add(new AmbientLight())
+  await universe.add(new Floor({
+    w: 200,
+    h: 200
+  }))
+
+  await universe.add(new Actor({
+    z: 10,
+    y: 1.4
+  }))
+
+  await universe.add(new Actor({
+    z: 4,
+    camera: new Camera(),
+    controls: {
+      Mouse,
+      Keyboard
+    }
+  }))
+
+  await universe.add(new Actor({
+    z: 3
+  }))
+  await universe.add(new Actor({
+    x: 6
+  }))
+  await universe.add(new Actor({
+    x: 4
+  }))
+
   await universe.add(new Cube({
     y: 4,
     x: -1,
     z: -6
+  }))
+
+  await universe.add(new Cube({
+    y: 4,
+    x: 0,
+    z: -10
   }))
   await universe.add(new Door({
     w: 2,
@@ -48,10 +78,6 @@ import { Controls } from './3d/controls/controls'
     z: -50,
     c: 0xff0000
   }))
-
-  new Controls() // This is manually hooked to the camera and the actor for now. I'm working on this.
-  new Mouse()
-  new Keyboard()
 
   AnimationLoop.start() // This starts to render the layers.
 })()

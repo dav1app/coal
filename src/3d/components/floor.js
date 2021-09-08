@@ -1,4 +1,4 @@
-import { PlaneBufferGeometry, MeshStandardMaterial, Mesh, RepeatWrapping, sRGBEncoding } from 'three'
+import { PlaneBufferGeometry, MeshStandardMaterial, Mesh, RepeatWrapping, sRGBEncoding, DoubleSide } from 'three'
 import { TextureLoader } from './textureLoader'
 import { World } from './world'
 import { fitTextureToGeometry } from '../utils/fitTexture'
@@ -25,7 +25,9 @@ export class Floor {
       roughness: 0.8,
       color: 0xffffff,
       metalness: 0.01,
-      bumpScale: 0.001
+      bumpScale: 0.001,
+      side: DoubleSide
+
     })
 
     const geometry = new PlaneBufferGeometry(w, h)

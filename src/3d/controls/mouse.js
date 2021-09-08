@@ -1,22 +1,24 @@
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls'
+import { Raycaster, Vector3 } from 'three'
 import { Renderer } from '../components/renderer'
-import { Camera } from '../components/camera'
-import { Raycaster } from '../components/raycaster'
 import { AnimationLoop } from '../components/animationLoop'
+import { EventLoop } from '../components/eventLoop'
 
 let _mouse
 
 export class Mouse {
-  constructor () {
-    _mouse = new PointerLockControls(Camera.current(), Renderer.current().domElement)
+  constructor ({ actor } = {}) {
+    this.graphics = {}
+    this.controls = new PointerLockControls(actor, Renderer.current().domElement)
+    this.raycaster = new Raycaster(new Vector3(), new Vector3(0, -1, 0), 0, 10)
 
-    document.addEventListener('click', function () {
-      _mouse.lock()
+    EventLoop.add('click', () => {
+      this.controls.lock()
     })
 
+    console.log(this.raycaster)
     AnimationLoop.add(() => {
-      Raycaster.ray.origin.copy(_mouse.getObject().position)
-      Raycaster.ray.origin.y -= 10
+      this.raycaster.ray.origin.copy(actor.position)
     })
 
     return _mouse

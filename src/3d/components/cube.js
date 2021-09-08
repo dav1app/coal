@@ -2,7 +2,8 @@ import {
   TextureLoader,
   Mesh,
   BoxBufferGeometry,
-  MeshStandardMaterial
+  MeshStandardMaterial,
+  DoubleSide
 } from 'three'
 import { Floor } from './floor'
 import { addHeightOffset } from '../utils/addHeightOffset'
@@ -11,8 +12,8 @@ import { AnimationLoop } from './animationLoop'
 
 /**
  * The main class for the cube to be used with <b>mixzoid,/b>.
- * @class Cube
  * @typedef {Object} mzCube
+ * @memberof Cube#
  * @property {THREE.Mesh} graphics - The graphics object.
  * @property {OIMO.Body} physics - The physics object
  */
@@ -72,20 +73,20 @@ export class Cube {
       pos: [x, y, z],
       move: true,
       density: 1,
-      friction: 0.2,
-      restitution: 0.2
+      friction: 1,
+      restitution: 0.4
     }
 
-    _cube.graphics = graphics
-    _cube.physics = World.current().add(physics)
+    this.graphics = graphics
+    this.physics = World.current().add(physics)
 
     // Adds the animation loop to link graphics and physics. The main source of truth is physics always.
     AnimationLoop.add(() => {
-      _cube.graphics.position.set(...Object.values(_cube.physics.getPosition()))
-      _cube.graphics.quaternion.set(...Object.values(_cube.physics.getQuaternion()))
+      this.graphics.position.set(...Object.values(this.physics.getPosition()))
+      this.graphics.quaternion.set(...Object.values(this.physics.getQuaternion()))
     })
 
-    return _cube
+    return this.cube
   }
 
   /**

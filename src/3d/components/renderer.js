@@ -14,12 +14,12 @@ export class Renderer {
     })
     renderer.setPixelRatio(window.devicePixelRatio / pixelRatio)
     renderer.shadowMap.enabled = true
-    renderer.autoClear = false
+    // renderer.autoClear = false
     renderer.precision = 'lowp'
     renderer.toneMapping = ACESFilmicToneMapping
     renderer.shadowMapSoft = true
-    renderer.stencil = false
-    renderer.depth = false
+    // renderer.stencil = false
+    // renderer.depth = false
     renderer.shadowMap.type = PCFSoftShadowMap
     renderer.physicallyCorrectLights = true
     renderer.gammaFactor = 2.2

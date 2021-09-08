@@ -1,7 +1,7 @@
 const _loop = {}
 
-function executeLoop (event) {
-  _loop[event].forEach(callback => callback())
+function executeLoop (event, eventParameters) {
+  _loop[event].forEach(callback => callback(eventParameters))
 }
 
 export class EventLoop {
@@ -13,8 +13,8 @@ export class EventLoop {
   static add (event, callback, options) {
     if (!_loop[event]) {
       _loop[event] = []
-      window.addEventListener(event, () => {
-        executeLoop(event)
+      window.addEventListener(event, (eventParameters) => {
+        executeLoop(event, eventParameters)
       })
     }
 
@@ -29,6 +29,5 @@ export class EventLoop {
 }
 
 window.onerror = (event) => {
-  console.log('Stop!')
   console.error(event)
 }
